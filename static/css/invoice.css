@@ -1,0 +1,21 @@
+.invoice-title h2, .invoice-title h3 {
+    display: inline-block;
+    color: #333333;
+    font-weight: 700;
+    margin-right: 10px;
+}
+
+.table > tbody > tr > .no-line {
+    border-top: none;
+    background-color: #f9f9f9;
+}
+
+.table > thead > tr > .no-line {
+    border-bottom: none;
+    background-color: #f1f1f1;
+}
+
+.table > tbody > tr > .thick-line {
+    border-top: 3px solid #4CAF50;
+    background-color: #fefefe;
+}
