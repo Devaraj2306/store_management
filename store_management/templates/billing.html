@@ -1,0 +1,212 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="main-container">
+    <div class="header">
+        <h1>Department Store Management System</h1>
+    </div>
+
+    <nav>
+        <ul>
+            <li><a href="#">Dashboard</a></li>
+            <li><a href="#">Calculate Bill</a></li>
+            <li><a href="#">Add Product</a></li>
+            <li><a href="#">Update</a></li>
+            <li><a href="#">Logout</a></li>
+        </ul>
+    </nav>
+
+    <div class="content">
+        <h3>Add new bill</h3>
+        <form id="customer-form" action="/add-new-bill/" method="POST">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <input type="text" id="customer-name" name="customer_name" placeholder="Customer Name" class="form-control">
+                </div>
+                <div class="form-group col-md-4">
+                    <input type="button" id="add-customer" value="Add" class="btn btn-success">
+                </div>
+            </div>
+        </form>
+        <hr>
+        <a class="btn btn-primary" href="/existing-bills">See existing bills</a>
+    </div>
+
+    <hr>
+
+    <div class="content">
+        <input type="text" id="product-id" placeholder="Enter the product ID" class="form-control">
+        <button id="search-btn" class="btn btn-primary mt-2">Search</button>
+    </div>
+
+    <div class="form-wrapper mt-4">
+        <!-- This section will display the items added by the customer -->
+        <table id="items-table" class="table">
+            <thead>
+                <tr>
+                    <th>Customer Name</th>
+                    <th>Product ID</th>
+                    <th>Product Name</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="items-list">
+                <!-- Items will be dynamically added here -->
+            </tbody>
+        </table>
+    </div>
+
+    <div class="calculate-bill mt-4">
+        <button id="calculate-btn" class="btn btn-primary">Calculate Total</button>
+        <button id="invoice-btn" class="btn btn-secondary">Generate Invoice</button>
+    </div>
+</div>
+
+<!-- JavaScript for dynamic item addition and invoice generation -->
+<script>
+    let customerName = '';
+
+    document.getElementById('add-customer').addEventListener('click', function() {
+        customerName = document.getElementById('customer-name').value;
+        alert('Customer added: ' + customerName);
+    });
+
+    document.getElementById('search-btn').addEventListener('click', function() {
+        let productId = document.getElementById('product-id').value;
+
+        // Fetch the product details based on productId (simulating this with static data)
+        let productName = "Sample Product"; // Replace with real data
+        let quantity = 1; // Initial quantity
+        let price = 100; // Replace with real data
+        let total = quantity * price;
+
+        let itemsList = document.getElementById('items-list');
+        let row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${customerName}</td>
+            <td>${productId}</td>
+            <td>${productName}</td>
+            <td contenteditable="true">${quantity}</td>
+            <td>${price}</td>
+            <td>${total}</td>
+            <td><button class="btn btn-danger remove-btn">Remove</button></td>
+        `;
+
+        // Event listener to remove the item
+        row.querySelector('.remove-btn').addEventListener('click', function() {
+            row.remove();
+        });
+
+        // Event listener to update total when quantity is changed
+        row.children[3].addEventListener('input', function() {
+            let updatedQuantity = parseInt(row.children[3].innerText) || 0;
+            let updatedTotal = updatedQuantity * price;
+            row.children[5].innerText = updatedTotal;
+        });
+
+        itemsList.appendChild(row);
+    });
+
+    document.getElementById('calculate-btn').addEventListener('click', function() {
+        let itemsList = document.getElementById('items-list').children;
+        let total = 0;
+
+        for (let i = 0; i < itemsList.length; i++) {
+            let itemTotal = parseFloat(itemsList[i].children[5].innerText);
+            total += itemTotal;
+        }
+
+        alert('Total Bill: $' + total);
+    });
+
+    document.getElementById('invoice-btn').addEventListener('click', function() {
+        alert('Invoice generated for customer: ' + customerName);
+        // Implement invoice generation logic here
+    });
+</script>
+<script>
+    let customerName = '';
+
+    // Event listener to add customer
+    document.getElementById('add-customer').addEventListener('click', function() {
+        customerName = document.getElementById('customer-name').value;
+        if (customerName.trim() === '') {
+            alert('Please enter a customer name.');
+            return;
+        }
+        alert('Customer added: ' + customerName);
+    });
+
+    // Event listener to search for a product and add it to the table
+    document.getElementById('search-btn').addEventListener('click', function() {
+        let productId = document.getElementById('product-id').value;
+
+        // Check if a customer has been added
+        if (customerName.trim() === '') {
+            alert('Please add a customer before adding items.');
+            return;
+        }
+
+        // Fetch product details based on productId (simulated with static data here)
+        let productName = "Sample Product"; // Replace with real data
+        let quantity = 1; // Default quantity
+        let price = 100; // Replace with real data
+        let total = quantity * price;
+
+        // Create a new row for the table
+        let itemsList = document.getElementById('items-list');
+        let row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${customerName}</td>
+            <td>${productId}</td>
+            <td>${productName}</td>
+            <td contenteditable="true">${quantity}</td>
+            <td>${price}</td>
+            <td>${total}</td>
+            <td><button class="btn btn-danger remove-btn">Remove</button></td>
+        `;
+
+        // Event listener to remove the item
+        row.querySelector('.remove-btn').addEventListener('click', function() {
+            row.remove();
+        });
+
+        // Event listener to update total when quantity is changed
+        row.children[3].addEventListener('input', function() {
+            let updatedQuantity = parseInt(row.children[3].innerText) || 0;
+            let updatedTotal = updatedQuantity * price;
+            row.children[5].innerText = updatedTotal;
+        });
+
+        itemsList.appendChild(row);
+    });
+
+    // Event listener to calculate the total bill
+    document.getElementById('calculate-btn').addEventListener('click', function() {
+        let itemsList = document.getElementById('items-list').children;
+        let total = 0;
+
+        for (let i = 0; i < itemsList.length; i++) {
+            let itemTotal = parseFloat(itemsList[i].children[5].innerText);
+            total += itemTotal;
+        }
+
+        alert('Total Bill: $' + total);
+    });
+
+    // Event listener to generate invoice
+    document.getElementById('invoice-btn').addEventListener('click', function() {
+        if (customerName.trim() === '') {
+            alert('Please add a customer before generating an invoice.');
+            return;
+        }
+        alert('Invoice generated for customer: ' + customerName);
+        // Implement actual invoice generation logic here (e.g., sending data to server)
+    });
+</script>
+
+{% endblock %}

@@ -1,0 +1,177 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,900;1,400;1,900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    font-size: 18px;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+}
+
+body {
+    background: #f4f4f4;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+.main-container {
+    background: #fff;
+    width: 85%;
+    max-width: 1000px;
+    padding: 30px;
+    margin: 40px auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.header h1 {
+    text-transform: uppercase;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-size: 2rem;
+}
+
+nav {
+    background-color: #2ecc71;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+}
+
+nav ul li {
+    text-align: center;
+    padding: 15px 20px;
+    flex: 1;
+}
+
+nav ul li:hover {
+    background-color: #27ae60;
+}
+
+nav ul li a {
+    color: #ffffff;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+nav ul li a:hover {
+    color: #ecf0f1;
+    text-decoration: none;
+}
+
+.form-wrapper {
+    padding: 10px;
+    width: auto;
+    height: 300px;
+    overflow-y: scroll;
+    margin-top: 20px;
+    background-color: #ecf0f1;
+    border-radius: 8px;
+}
+
+.content {
+    margin: 30px 0;
+    color: #34495e;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.table th, .table td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+    color: #2c3e50;
+}
+
+.table th {
+    background-color: #2980b9;
+    color: #ffffff;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.table > tbody > tr > .no-line {
+    border-top: none;
+}
+
+.table > thead > tr > .no-line {
+    border-bottom: none;
+}
+
+.table > tbody > tr > .thick-line {
+    border-top: 3px solid #27ae60;
+}
+
+.calculate-bill {
+    margin-top: 20px;
+    text-align: right;
+}
+
+#calculate-btn {
+    background-color: #3498db;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#calculate-btn:hover {
+    background-color: #2980b9;
+}
+
+#items-table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+#items-table th, #items-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+#items-table th {
+    background-color: #2ecc71;
+    color: #ffffff;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+#items-table td {
+    background-color: #ecf0f1;
+}
+
+#items-table tr:hover {
+    background-color: #dfe6e9;
+}
+
+.card-header form, .calculate_bill {
+   float: right;
+}
